@@ -1,12 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+// import { initializeApp } from "firebase/app";
+import firebase from "firebase/app";
+import getFirestore from "firebase/firestore";
+import firebase from "firebase/app";
+import { collection, addDoc } from "firebase/firestore"; 
 
 
 
-const firebaseConfig = {
+const firebase.firebaseConfig = {
   apiKey: "AIzaSyA4El0SHGsH31K0luD8DqcpfDfbyHFKk0Q",
   authDomain: "fir-helloworld-cloud.firebaseapp.com",
   projectId: "fir-helloworld-cloud",
@@ -16,17 +19,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
 
 
 // Initialize Cloud Firestore and get a reference to the service
-const db = getFirestore(app);
-
-
-
-
-
-
+const db = firebase.getFirestore(app);
 
 
 
@@ -45,9 +42,23 @@ function App() {
 
 
 
-  const savePost = (e) => {
+  const savePost = async (e) => {
     e.preventDefault();
-    console.log("PostText:", postText)
+    console.log("PostText:", postText);
+
+
+    try {
+      const docRef = await addDoc(collection(db, "posts"), {
+        text: postText,
+        createdOn: new Date().getDate(),
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+
+
+
   }
 
 
@@ -59,18 +70,18 @@ function App() {
   return (
     <div className="App">
       <h1>Firebase HelloWorld</h1>
-     <p>Add Todo</p>
+     <h3>Social Media App</h3>
 
       <form onSubmit={savePost}>
           
-        <textarea
+        <input
          type="text"
-          placeholder='add your todos ....'
+          placeholder='add your minds ....'
           onChange={(e) => {
             setPostText(e.target.value)
           }}
           />
-          <button type='submit'> Add Todo</button>
+          <button type='submit'>Save Post</button>
 
       </form>
 
