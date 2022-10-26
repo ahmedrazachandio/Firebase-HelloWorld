@@ -1,15 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
-// import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import firebase from "firebase/app";
 import getFirestore from "firebase/firestore";
-import firebase from "firebase/app";
 import { collection, addDoc } from "firebase/firestore"; 
 
 
 
-const firebase.firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyA4El0SHGsH31K0luD8DqcpfDfbyHFKk0Q",
   authDomain: "fir-helloworld-cloud.firebaseapp.com",
   projectId: "fir-helloworld-cloud",
